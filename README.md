@@ -1,1 +1,1 @@
-# Laboratorio 2 - Circuitos Digitales II
+# IE-0523: Circuitos Digitales II
