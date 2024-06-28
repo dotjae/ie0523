@@ -27,7 +27,7 @@ module generador (
 
 
     always @(posedge clk) begin
-        if (rst) begin
+        if (!rst) begin
             rd_data <= 0;
             data_rdy <= 0;
             MDC <= 0;

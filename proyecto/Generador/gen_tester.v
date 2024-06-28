@@ -13,11 +13,11 @@ end
 
 initial begin
     clk = 0;
-    rst = 1;
+    rst = 0;
 
     #400;
 
-    rst = 0;
+    rst = 1;
     mdio_start = 0;
     mdio_in = 0;
     #2400;
