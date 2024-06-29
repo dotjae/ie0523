@@ -5,7 +5,7 @@ module testbench;
     wire clk; 
     wire rst;
     wire MDIO_START;
-    wire MDIO_IN;
+    wire [15:0] MDIO_IN;
     wire [31:0] T_DATA;
     wire [15:0] RD_DATA;
     wire DATA_RDY;
@@ -18,7 +18,7 @@ Generador generador (
     .clk(clk),
     .rst(rst),
     .MDIO_START(MDIO_START),
-    .MDIO_IN(MDIO_IN),
+    .MDIO_IN(MDIO_IN[15:0]),
     .T_DATA(T_DATA[31:0]),
     .RD_DATA(RD_DATA[15:0]),
     .DATA_RDY(DATA_RDY),
@@ -31,7 +31,7 @@ Tester test (
     .clk(clk),
     .rst(rst),
     .MDIO_START(MDIO_START),
-    .MDIO_IN(MDIO_IN),
+    .MDIO_IN(MDIO_IN[15:0]),
     .T_DATA(T_DATA[31:0]),
     .RD_DATA(RD_DATA[15:0]),
     .DATA_RDY(DATA_RDY),
