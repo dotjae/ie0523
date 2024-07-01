@@ -4,8 +4,6 @@ generador:
 	gtkwave gen.vcd
 
 receptor:
-	iverilog -o tb.vvp rec_tb.v
-	vvp tb.vvp
-	gtkwave rec.vcd
-
-clean:
+	iverilog -o tb_receptor.vvp rec_tb.v
+	vvp tb_receptor.vvp
+	gtkwave tb_receptor.vcd

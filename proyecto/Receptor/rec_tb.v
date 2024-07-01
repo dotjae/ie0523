@@ -1,33 +1,61 @@
+/******************************
+* Codigo del testbench del receptor MDIO
+*
+*
+*
+*
+*******************************/
+
+`timescale 1ns/1ns
+
 `include "Receptor.v"
 `include "rec_tester.v"
 
-module testbench;
-    wire MDC, rst, mdio_oe, mdio_out;
-    wire [15:0] rd_data;
-    wire mdio_in, mdio_done, wr_stb;
-    wire [4:0] addr;
-    wire [15:0] wr_data;
+module tb_Receptor;
+    wire MDC;
+    wire RESET;
+    wire MDIO_OUT;
+    wire MDIO_OE;
+    wire MDIO_DONE;
+    wire MDIO_IN;
+    wire [4:0] ADDR;
+    wire [15:0] WR_DATA;
+    wire [15:0] RD_DATA;
+    wire WR_STB;
 
-    receptor DUT(
+    // Instancia del modulo Receptor
+    receptor_mdio receptor (
         .MDC(MDC),
-        .rst(rst),
-        .rd_data(rd_data[15:0]),
-        .mdio_in(mdio_in),
-        .mdio_done(mdio_done),
-        .wr_stb(wr_stb),
-        .addr(addr[4:0]),
-        .wr_data(wr_data[15:0])
+        .RESET(RESET),
+        .MDIO_OUT(MDIO_OUT),
+        .MDIO_OE(MDIO_OE),
+        .MDIO_DONE(MDIO_DONE),
+        .MDIO_IN(MDIO_IN),
+        .ADDR(ADDR),
+        .WR_DATA(WR_DATA),
+        .RD_DATA(RD_DATA),
+        .WR_STB(WR_STB)
     );
 
-    tester test(
+    // Instancia del modulo Tester
+    Tester_Receptor prueba (
         .MDC(MDC),
-        .rst(rst),
-        .rd_data(rd_data[15:0]),
-        .mdio_in(mdio_in),
-        .mdio_done(mdio_done),
-        .wr_stb(wr_stb),
-        .addr(addr[4:0]),
-        .wr_data(wr_data[15:0])
+        .RESET(RESET),
+        .MDIO_OUT(MDIO_OUT),
+        .MDIO_OE(MDIO_OE),
+        .MDIO_DONE(MDIO_DONE),
+        .MDIO_IN(MDIO_IN),
+        .ADDR(ADDR),
+        .WR_DATA(WR_DATA),
+        .RD_DATA(RD_DATA),
+        .WR_STB(WR_STB)
     );
+
+    initial begin
+        
+        $dumpfile("tb_receptor.vcd");
+        $dumpvars;
+    end
+
 
 endmodule
