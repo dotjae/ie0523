@@ -39,7 +39,7 @@ always @(*) begin
     REGADDR <= T_DATA[22:18];
     DATA <= T_DATA[15:0];
 
-    if (rst || internal_rst) begin
+    if (!rst || internal_rst) begin
         RD_DATA <= 0;
         DATA_RDY <= 0;
         MDC <= 0;
