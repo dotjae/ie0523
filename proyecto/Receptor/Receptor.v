@@ -1,12 +1,11 @@
 /******************************
 * Codigo de receptor MDIO
 *
-*
-*
-*
+*   Jose Flores
+*   Antonio Franchi
+*   Sebastian Rojas
 *******************************/
 
-// No funka del todo bien
 
 module receptor_mdio(
     input MDC,
