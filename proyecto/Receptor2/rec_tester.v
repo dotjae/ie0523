@@ -11,7 +11,7 @@
 module Tester_Receptor (
     output reg MDC, 
     output reg RESET,
-    output reg [31:0] T_DATA,
+    output reg [31:0] MDIO_OUT,
     output reg MDIO_OE,
     output reg [15:0] RD_DATA,
     input MDIO_DONE,
@@ -36,7 +36,7 @@ initial begin
     // Inicializacion de señales de MDC (clock) y reset
     MDC = 0;
     RESET = 0;
-    T_DATA = 0;
+    MDIO_OUT = 0;
     MDIO_OE = 0;
     #10 
 
@@ -45,7 +45,7 @@ initial begin
     RESET = 1'b1;
     #20
     MDIO_OE = 1;
-    T_DATA = 32'h8A5AFF01;
+    MDIO_OUT = 32'h8A5AFF01;
     
     #670
     MDIO_OE = 0;        // Deshabilita la salida MDIO
@@ -53,7 +53,7 @@ initial begin
     // Prueba de Transaccion de Escritura
     #20
     MDIO_OE = 1;        // Habilita MDIO para escritura
-    T_DATA = 32'h9A5AFF01;
+    MDIO_OUT = 32'h9A5AFF01;
 
     #670
     RESET = 0;

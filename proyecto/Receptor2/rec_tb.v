@@ -14,7 +14,7 @@
 module tb_Receptor;
     wire MDC;
     wire RESET;
-    wire [31:0] T_DATA;
+    wire [31:0] MDIO_OUT;
     wire MDIO_OE;
     wire MDIO_DONE;
     wire MDIO_IN;
@@ -27,7 +27,7 @@ module tb_Receptor;
     receptor_mdio receptor (
         .MDC(MDC),
         .RESET(RESET),
-        .T_DATA(T_DATA[31:0]),
+        .MDIO_OUT(MDIO_OUT[31:0]),
         .MDIO_OE(MDIO_OE),
         .MDIO_DONE(MDIO_DONE),
         .MDIO_IN(MDIO_IN),
@@ -41,7 +41,7 @@ module tb_Receptor;
     Tester_Receptor prueba (
         .MDC(MDC),
         .RESET(RESET),
-        .T_DATA(T_DATA[31:0]),
+        .MDIO_OUT(MDIO_OUT[31:0]),
         .MDIO_OE(MDIO_OE),
         .MDIO_DONE(MDIO_DONE),
         .MDIO_IN(MDIO_IN),

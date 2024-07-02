@@ -10,7 +10,7 @@
 module receptor_mdio(
     input MDC,
     input RESET,
-    input [31:0] T_DATA,
+    input [31:0] MDIO_OUT,
     input MDIO_OE,
     input [15:0] RD_DATA,
     output reg MDIO_DONE,
@@ -28,7 +28,7 @@ localparam  IDLE = 4'b0000,    // Estado base (ground state)
             DONE = 4'b1000;   // Estado de transaccion completada
 
 // "Input" MDIO_OUT
-reg MDIO_OUT;
+reg MDIO_OUT1;
 
 // Variables internas para la FSM
 reg [3:0] state;
@@ -43,12 +43,12 @@ reg [15:0] DATA;
 
 // Asignacion de posiciones del frame format de Basic MDIO
 always @(*) begin
-    ST = T_DATA[31:30];
-    OP = T_DATA[29:28];
-    PHYADDR = T_DATA[27:23];
-    REGADDR = T_DATA[22:18];
-    TA = T_DATA[17:16];
-    DATA = T_DATA[15:0];
+    ST = MDIO_OUT[31:30];
+    OP = MDIO_OUT[29:28];
+    PHYADDR = MDIO_OUT[27:23];
+    REGADDR = MDIO_OUT[22:18];
+    TA = MDIO_OUT[17:16];
+    DATA = MDIO_OUT[15:0];
 
     if (!RESET || internal_rst) begin
         // Se reinician de todas las señales
@@ -74,7 +74,7 @@ always @(posedge MDC) begin
             // Estado de Inicio
             START: begin
                 if (MDIO_OE) begin
-                    MDIO_OUT <= T_DATA[31 - data_counter];
+                    MDIO_OUT1 <= MDIO_OUT[31 - data_counter];
                     data_counter <= data_counter + 1;
                     if (data_counter == 31) begin
                         // Proximo estado basado en el tipo de OP
@@ -93,7 +93,7 @@ always @(posedge MDC) begin
             end
             // Estado de lectura
             READ: begin
-                MDIO_IN <= T_DATA[15 - data_counter];  // Enviar datos de lectura desde RD_DATA
+                MDIO_IN <= MDIO_OUT[15 - data_counter];  // Enviar datos de lectura desde RD_DATA
                 data_counter <= data_counter + 1;
                 if (data_counter == 15) begin
                     MDIO_DONE <= 1;
