@@ -11,7 +11,7 @@
 module Tester_Receptor (
     output reg MDC, 
     output reg RESET,
-    output reg MDIO_OUT,
+    output reg [31:0] MDIO_OUT,
     output reg MDIO_OE,
     output reg [15:0] RD_DATA,
     input MDIO_DONE,
@@ -26,58 +26,38 @@ always begin
     #5 MDC = !MDC; 
 end
 
-// // Inicializacion de señales de MDC (clock) y reset
-// initial begin
-//     MDC = 0;
-//     RESET = 1;
-// end
-
 initial begin
     // Inicializacion de señales de MDC (clock) y reset
     MDC = 0;
-    RESET = 0;
-    MDIO_OUT = 0;
-    MDIO_OE = 0;
-    #10 
 
-    // Coloca los datos de lectura iniciales
-    RD_DATA = 16'h8FF1;
-    RESET = 1'b1;
-    #20
+    // Operacion de lectura:    
+    MDIO_OUT = 32'h4FFFABCD;
+    RD_DATA = 16'hDCBA;
+    RESET = 0;
+    
+    #10
+    RESET = 1;
     MDIO_OE = 1;
-    MDIO_OUT = 1;
-    #10
 
-    // Prueba de Transaccion de Lectura
-    #10
-    // Enviar datos por MDIO_OUT y verificar MDIO_IN
-    MDIO_OUT = 1'b1;    // Envia 1 bit 
-    #10
-    MDIO_OUT = 1'b0;    // Envia 2 bit 
-    #10
-    MDIO_OUT = 1'b0;    // Envia 3 bit 
-    #10
-    MDIO_OUT = 1'b0;
-    #10
+    #160
+    MDIO_OE =0;
+    #160
 
-    #670
-    MDIO_OE = 0;        // Deshabilita la salida MDIO
+    // Operacion de escritura
+    RESET = 1'b0;
+    #10
+    MDIO_OUT = 32'h5FFFABCD;
+    #10 
+    RESET = 1;
 
-    // Prueba de Transaccion de Escritura
-    #20
-    MDIO_OE = 1;        // Habilita MDIO para escritura
-    MDIO_OUT = 1'b0;       // Envia datos para escritura
+    MDIO_OE = 1;
+    #180
+    MDIO_OE = 0;
+    
     #10
-    MDIO_OUT = 1'b0;
-    #10
-    MDIO_OUT = 1'b0;
-    #10
-    MDIO_OUT = 1'b1;
-    #10
-
-    #670
     RESET = 0;
-    #200
+    
+    #100
     $finish;
 end
     
