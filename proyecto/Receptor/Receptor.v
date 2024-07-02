@@ -22,7 +22,8 @@ module receptor_mdio(
 );
 
 // Parametros locales para los estados de la FSM usando OneHot
-localparam  START = 4'b0001,   // Estado de Inicio/espera
+localparam  IDLE = 4'b0000,    // Estado base (ground state)
+            START = 4'b0001,   // Estado de Inicio/espera
             WRITE = 4'b0010,  // Estado de escritura
             READ = 4'b0100,   // Estado de lectura
             DONE = 4'b1000;   // Estado de transaccion completada
@@ -49,7 +50,7 @@ always @(*) begin
 
     if (!RESET || internal_rst) begin
         // Se reinician de todas las señales
-        state <= START;
+        state <= IDLE;
         MDIO_DONE <= 0;
         MDIO_IN <= 0;
         ADDR <= 0;
@@ -60,6 +61,10 @@ always @(*) begin
     end
 end
 
+always @(posedge MDC)begin
+    if (state == IDLE && OP == 2'b00 && OP == 2'b01)
+        state <= START;
+end
 
 always @(posedge MDC) begin
         // Logica de la FSM
@@ -97,7 +102,8 @@ always @(posedge MDC) begin
             DONE: begin
                 WR_STB <= 0;  // Desactiva señal de escritra
                 MDIO_DONE <= 0; // Desactiva señal de transac completada
-                state <= START;  // Pasa a estado de inicio
+                state <= IDLE;  // Pasa a estado de base
+                internal_rst <= 1;
             end
             // Estado por default
             default: state = START;

@@ -19,7 +19,7 @@ end
 
 initial begin
     clk = 0;
-    rst = 1'b1;
+    rst = 1'b0;
 end
 
 initial begin
@@ -27,7 +27,7 @@ initial begin
     MDIO_START = 0;
     T_DATA = 32'h8A5AFF01;
     MDIO_IN = 16'h8FF1;
-    rst = 1'b0;
+    rst = 1'b1;
     #25
     MDIO_START = 1;
     #10
@@ -44,7 +44,7 @@ initial begin
 
     #670
     MDIO_START = 0;
-    rst = 1;
+    rst = 1'b0;
 
     #200
 

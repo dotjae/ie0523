@@ -43,7 +43,7 @@ always @(*) begin
     if (!rst || !internal_rst) begin
         RD_DATA <= 0;
         DATA_RDY <= 0;
-        MDC <= 0;
+        //MDC <= 0;
         MDIO_OE <= 0;
         MDIO_OUT <= 0;
         internal_rst <= 1;

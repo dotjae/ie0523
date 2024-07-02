@@ -35,14 +35,14 @@ end
 initial begin
     // Inicializacion de señales de MDC (clock) y reset
     MDC = 0;
-    RESET = 1;
+    RESET = 0;
     MDIO_OUT = 0;
     MDIO_OE = 0;
     #10 
 
     // Coloca los datos de lectura iniciales
     RD_DATA = 16'h8FF1;
-    RESET = 1'b0;
+    RESET = 1'b1;
     #20
     MDIO_OE = 1;
     MDIO_OUT = 1;
