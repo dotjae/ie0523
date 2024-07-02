@@ -62,7 +62,7 @@ always @(*) begin
 end
 
 always @(posedge MDC)begin
-    if (state == IDLE && OP == 2'b00 && OP == 2'b01)
+    if (state == IDLE && (OP == 2'b00 || OP == 2'b01))
         state <= START;
 end
 
@@ -72,7 +72,7 @@ always @(posedge MDC) begin
             // Estado de Inicio
             START: begin
                 if (MDIO_OE) begin
-                    shift_reg <= {shift_reg[30:0], MDIO_OUT};   // Desplaza bits de MDIO Out al registro
+                    shift_reg <= {shift_reg[31:0], MDIO_OUT};   // Desplaza bits de MDIO Out al registro
                     data_counter <= data_counter + 1;
                     if (data_counter == 31) begin
                         // Proximo estado basado en el tipo de OP

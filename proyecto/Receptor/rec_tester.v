@@ -55,7 +55,9 @@ initial begin
     #10
     MDIO_OUT = 1'b0;    // Envia 2 bit 
     #10
-    MDIO_OUT = 1'b1;    // Envia 3 bit 
+    MDIO_OUT = 1'b0;    // Envia 3 bit 
+    #10
+    MDIO_OUT = 1'b0;
     #10
 
     #670
@@ -64,15 +66,17 @@ initial begin
     // Prueba de Transaccion de Escritura
     #20
     MDIO_OE = 1;        // Habilita MDIO para escritura
-    MDIO_OUT = 1;       // Envia datos para escritura
+    MDIO_OUT = 1'b0;       // Envia datos para escritura
     #10
-    MDIO_OUT = 0;
+    MDIO_OUT = 1'b0;
     #10
-    MDIO_OUT = 1;
+    MDIO_OUT = 1'b0;
+    #10
+    MDIO_OUT = 1'b1;
     #10
 
     #670
-
+    RESET = 0;
     #200
     $finish;
 end

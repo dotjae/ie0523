@@ -9,4 +9,4 @@ receptor:
 	gtkwave rec.vcd
 
 clean:
-	rm .v*
+	rm .vcd*
